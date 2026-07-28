@@ -10,22 +10,34 @@ export function ReasoningBlock({ block }: ReasoningBlockProps) {
 
   return (
     <Section title="Reasoning">
-      <ol className="space-y-2 px-4">
-        <li className="fade-in border-l border-border-subtle pl-3">
-          <div className="text-[12.5px] text-foreground">
-            <span className="text-micro mr-2">Obs</span>
-            {c.analysis || c.text || 'Analyzing incident data...'}
+      <div className="ml-4 pl-4 border-l border-border-subtle py-1 space-y-4 text-[12.5px]">
+        {c.observation && (
+          <div>
+            <div className="text-micro mb-0.5 text-fg-muted">Observation</div>
+            <div className="text-foreground leading-relaxed">{c.observation}</div>
           </div>
-          {c.evidence_used && (
-            <div className="mt-0.5 text-[12px] text-fg-muted">
-              <span className="text-micro mr-2">Ev</span>
-              <span className="mono">
-                {(Array.isArray(c.evidence_used) ? c.evidence_used : [c.evidence_used]).join(' · ')}
-              </span>
+        )}
+        {c.inference && (
+          <div>
+            <div className="text-micro mb-0.5 text-fg-muted">Inference</div>
+            <div className="text-foreground leading-relaxed">{c.inference}</div>
+          </div>
+        )}
+        {(c.analysis || c.text) && !c.observation && (
+          <div>
+            <div className="text-micro mb-0.5 text-fg-muted">Analysis</div>
+            <div className="text-foreground leading-relaxed">{c.analysis || c.text}</div>
+          </div>
+        )}
+        {c.evidence_used && (
+          <div>
+            <div className="text-micro mb-0.5 text-fg-muted">Evidence</div>
+            <div className="mono text-[11px] text-fg-muted">
+              {(Array.isArray(c.evidence_used) ? c.evidence_used : [c.evidence_used]).join(' · ')}
             </div>
-          )}
-        </li>
-      </ol>
+          </div>
+        )}
+      </div>
     </Section>
   );
 }

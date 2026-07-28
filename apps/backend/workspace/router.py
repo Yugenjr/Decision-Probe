@@ -154,8 +154,13 @@ async def chat_workspace(id: str, request: ChatRequest, session: Session = Depen
     client = InferenceClient()
     engine = ReasoningEngine(session, client)
     
+    async def stream_with_user_msg():
+        yield f"data: {json.dumps({'type': 'chat_message', 'payload': {'id': user_msg.id, 'role': user_msg.role, 'content': user_msg.content, 'timestamp': user_msg.timestamp.isoformat()}})}\n\n"
+        async for chunk in engine.execute_and_stream(id, request.message):
+            yield chunk
+            
     return StreamingResponse(
-        engine.execute_and_stream(id, request.message),
+        stream_with_user_msg(),
         media_type="text/event-stream"
     )
 

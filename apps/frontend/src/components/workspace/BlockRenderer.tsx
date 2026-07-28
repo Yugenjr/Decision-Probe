@@ -40,19 +40,19 @@ export function Section({
 }) {
   const [open, setOpen] = useState(defaultOpen);
   return (
-    <section className="border-t border-border-subtle">
-      <header className="sticky top-0 z-10 flex h-8 items-center bg-background/90 backdrop-blur-sm">
+    <section className="mb-8">
+      <header className="sticky top-0 z-10 flex h-8 items-center bg-background">
         <button
           onClick={() => setOpen(v => !v)}
-          className="group flex flex-1 items-center gap-2 pl-4 pr-2 text-left"
+          className="group flex flex-1 items-center gap-2 pr-2 text-left"
         >
-          <span className="mono w-3 text-[10px] text-fg-muted transition-transform" style={{ transform: open ? 'rotate(90deg)' : 'none' }}>›</span>
+          <span className="mono w-3 text-[11px] text-fg-muted transition-transform" style={{ transform: open ? 'rotate(90deg)' : 'none' }}>›</span>
           <span className="text-micro">{title}</span>
           {count !== undefined && <span className="mono text-[10.5px] text-fg-muted">· {count}</span>}
         </button>
         {action && open && <div className="pr-4">{action}</div>}
       </header>
-      {open && <div className="fade-in pb-4">{children}</div>}
+      {open && <div className="fade-in pt-1 pb-4">{children}</div>}
     </section>
   );
 }
